@@ -1,4 +1,4 @@
-name: 🚀 CD - Deploy Automático no GitHub Pages
+name: "CD - Deploy Automático no GitHub Pages"
 
 on:
   push:
@@ -17,11 +17,12 @@ jobs:
 
       - name: Publicar site
         run: |
-          mkdir public
+          mkdir -p public
           cp index.html public/
-          gh-pages -d public
+          npx gh-pages -d public -u "github-actions-bot <support+actions@github.com>" --repo "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Exibir URL do site
-        run: echo "✅ Site disponível em: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+        run: |
+          echo "Site disponível em: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"

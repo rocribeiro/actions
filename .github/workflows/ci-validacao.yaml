@@ -1,0 +1,22 @@
+name:  CI - Validação de Código HTML
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v4
+
+      - name: Validar HTML básico
+        run: |
+          if grep -q "TODO" index.html; then
+            echo "❌ Encontrei um TODO, corrija antes do merge!"
+            exit 1
+          fi
+          echo " Nenhum erro encontrado, código aprovado!"
